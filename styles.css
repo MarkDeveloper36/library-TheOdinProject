@@ -1,0 +1,6 @@
+#logo {
+    background-color: rgb(124, 124, 124);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+}
