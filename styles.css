@@ -15,6 +15,10 @@
     --dark-bg-color3: #FF00FF; /* Magenta */
     --dark-bg-color4: #4B0082; /* Indigo */
 }
+
+body {
+    font-family: "Roboto", sans-serif;
+}
   
 .lightThemeBody {
     background-color: var(--light-bg-color1);
@@ -24,10 +28,40 @@
     background-color: var(--dark-bg-color1);
 }
 
+.lightThemeHeader {
+    background-color: var(--light-main-color);
+}
+
+.darkThemeHeader {
+    background-color: var(--dark-main-color);
+}
+
+header {
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: 20rem 1fr 30rem;
+}
+
 #logo {
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
+}
+
+#optionsDiv {
+    grid-column: 3 / 4;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    align-items: center;
+    justify-items: end;
+}
+
+button {
+    width: 100px;
+}
+
+#addBookBtn{
+    justify-self: start;
 }
 
 
