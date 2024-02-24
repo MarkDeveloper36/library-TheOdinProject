@@ -1,6 +1,58 @@
+/* Lighttheme */
+:root {
+    --light-main-color: #1E90FF; /* Diepblauw */
+    --light-bg-color1: #CCCCCC; /* Lichtgrijs */
+    --light-bg-color2: #C0C0C0; /* Zilver */
+    --light-bg-color3: #87CEEB; /* Hemelsblauw */
+    --light-bg-color4: #40E0D0; /* Turquoise */
+}
+  
+/* Darktheme */
+:root {
+    --dark-main-color: #800080; /* Diep paars */
+    --dark-bg-color1: #505050; /* Donkergrijs */
+    --dark-bg-color2: #848482; /* Zilvergrijs */
+    --dark-bg-color3: #FF00FF; /* Magenta */
+    --dark-bg-color4: #4B0082; /* Indigo */
+}
+  
+.lightThemeBody {
+    background-color: var(--light-bg-color1);
+}
+
+.darkThemeBody {
+    background-color: var(--dark-bg-color1);
+}
+
 #logo {
-    background-color: rgb(124, 124, 124);
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
 }
+
+
+
+
+
+
+
+
+
+
+
+/* 
+Voor het lichte thema (diepblauw):
+
+Diepblauw: #1E90FF (hoofdkleur)
+Lichtgrijs: #CCCCCC
+Hemelsblauw: #87CEEB
+Zilver: #C0C0C0
+Turquoise: #40E0D0
+Voor het donkere thema (diep paars):
+
+Diep paars: #800080 (hoofdkleur)
+Donkergrijs: #505050
+Magenta: #FF00FF
+Zilvergrijs: #848482
+Indigo: #4B0082
+*/
