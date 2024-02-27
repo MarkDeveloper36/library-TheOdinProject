@@ -19,9 +19,9 @@ function Book(title, author, totPages, haveFinished) {
     this.haveFinished = haveFinished
 }
 
-const defaultBook1 = new Book('Shoe Dog', 'Phil Knight', 413, 'not yet');
+const defaultBook1 = new Book('Shoe Dog', 'Phil Knight', 413, 'In progress');
 library.push(defaultBook1);
-const defaultBook2 = new Book('Mindset', 'Carol Dweck', 352, 'Yes');
+const defaultBook2 = new Book('Mindset', 'Carol Dweck', 352, 'Completed');
 library.push(defaultBook2);
 
 displayBooks();
@@ -55,7 +55,7 @@ function displayBooks() {
         bookTitle.textContent = library[i].title;
         bookAuthor.textContent = 'by ' + library[i].author;
         numOfPages.textContent = 'Pages: ' + library[i].totPages;
-        finished.textContent = 'Finished: ' + library[i].haveFinished;
+        finished.textContent = 'Status: ' + library[i].haveFinished;
 
         main.appendChild(newCard);
         newCard.appendChild(bookTitle);
@@ -77,7 +77,10 @@ function giveStyleAndTheme(card) {
     card.addEventListener('mouseenter', playSoundEffect);
 }
 
-
+addBookBtn.addEventListener('click', () => {
+    addBookBtn.classList.add('addBtnAnimation');
+    console.log('eafds')
+})
 
 
 
