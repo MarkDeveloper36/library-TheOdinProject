@@ -8,6 +8,7 @@ const btns = document.querySelectorAll('button');
 const svgs = document.querySelectorAll('svg');
 const footer = document.querySelector('footer');
 const addBookBtn = document.querySelector('#addBookBtn');
+const main = document.querySelector('main');
 
 const cardSoundEffect = new Audio('Drawing Playing Cards Sound Effect.mp3');
 
@@ -18,35 +19,51 @@ function Book(title, author, totPages, haveFinished) {
     this.haveFinished = haveFinished
 }
 
-const testBook = new Book('shoeDog', 'Phil Knight', 413, 'not yet');
-const testBook2 = new Book('shoeDog2', 'Phil Knight2', 13, 'Yes');
-library.push(testBook);
-library.push(testBook2);
+const defaultBook1 = new Book('Shoe Dog', 'Phil Knight', 413, 'not yet');
+library.push(defaultBook1);
+const defaultBook2 = new Book('Mindset', 'Carol Dweck', 352, 'Yes');
+library.push(defaultBook2);
 
 displayBooks();
 
 addBookBtn.addEventListener('click', () => {
-    let title = prompt('book title', 'harry porrter');
+    let title = prompt('book title', 'harry potter');
     let author = prompt('author');
     let totPages = prompt('pages');
     let haveFinished = prompt('finished?');
     let newBook = new Book(title, author, totPages, haveFinished);
     library.push(newBook);
+    removeCardsFromDom();
     displayBooks();
 })
 
-
+function removeCardsFromDom() {
+    let cards = document.querySelectorAll('.bookCard');
+    cards.forEach(card => {
+        card.remove();
+    })
+}
 
 function displayBooks() {
-    let currentCars = main.querySelectorAll('div');
-    currentCars.forEach(card => {
-        console.log(card);
-    })
     for(let i = 0; i < library.length; i++) {
-        let card = document.createElement('div');
-        giveStyleAndTheme(card);
-        card.textContent = library[i].title;
-        main.appendChild(card);
+        let newCard = document.createElement('div');
+        let bookTitle = document.createElement('h2');
+        let bookAuthor = document.createElement('p');
+        let numOfPages = document.createElement('p');
+        let finished = document.createElement('p');
+
+        bookTitle.textContent = library[i].title;
+        bookAuthor.textContent = 'Author: ' + library[i].author;
+        numOfPages.textContent = 'Pages: ' + library[i].totPages;
+        finished.textContent = 'Finished: ' + library[i].haveFinished;
+
+        main.appendChild(newCard);
+        newCard.appendChild(bookTitle);
+        newCard.appendChild(bookAuthor);
+        newCard.appendChild(numOfPages);
+        newCard.appendChild(finished);
+
+        giveStyleAndTheme(newCard);
     }
 }
 
