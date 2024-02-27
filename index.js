@@ -53,7 +53,7 @@ function displayBooks() {
         let finished = document.createElement('p');
 
         bookTitle.textContent = library[i].title;
-        bookAuthor.textContent = 'Author: ' + library[i].author;
+        bookAuthor.textContent = 'by ' + library[i].author;
         numOfPages.textContent = 'Pages: ' + library[i].totPages;
         finished.textContent = 'Finished: ' + library[i].haveFinished;
 
@@ -137,6 +137,6 @@ changeThemeBtn.addEventListener('click', () => {
 });
 
 function playSoundEffect() {
-    cardSoundEffect.currentTime = 5.6;
+    cardSoundEffect.currentTime = 5.65;
     cardSoundEffect.play();
 }
