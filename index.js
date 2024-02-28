@@ -12,6 +12,8 @@ const addBookBtn = document.querySelector('#addBookBtn');
 const main = document.querySelector('main');
 const cardTable = document.querySelector('#cardTable');
 const sideBar = document.querySelector('#sideBar');
+const submitBtn = document.querySelector('#submitInfo');
+const form = document.querySelector('#form');
 
 const cardSoundEffect = new Audio('Drawing Playing Cards Sound Effect.mp3');
 
@@ -29,13 +31,15 @@ library.push(defaultBook2);
 
 displayBooks();
 
-addBookBtn.addEventListener('click', () => {
-    // let title = prompt('book title', 'harry potter');
-    // let author = prompt('author');
-    // let totPages = prompt('pages');
-    // let haveFinished = prompt('finished?');
+submitBtn.addEventListener('click', event => {
+    event.preventDefault();
+    let title = document.querySelector('#title').value;
+    let author = document.querySelector('#author').value;
+    let totPages = document.querySelector('#numOfPages').value;
+    let haveFinished = document.querySelector('#completed').value;
     let newBook = new Book(title, author, totPages, haveFinished);
     library.push(newBook);
+    form.reset();
     removeCardsFromDom();
     displayBooks();
 })
@@ -91,7 +95,7 @@ addBookBtn.addEventListener('click', () => {
     } else {
         addBookBtn.classList.remove('addBtnAnimation');
         sideBar.classList.add('visuallyhidden');
-        sideBar.addEventListener('transitioned', function(e) {
+        sideBar.addEventListener('transitioned', event => {
             sideBar.classList.add('hideSideBar');
         });
         isSideBarShown = false;
