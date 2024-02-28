@@ -57,16 +57,21 @@ function displayBooks() {
         let newCard = document.createElement('div');
         let bookTitle = document.createElement('h2');
         let bookAuthor = document.createElement('p');
+        let deleteBtn =  document.createElement('button');
         let numOfPages = document.createElement('p');
         let finished = document.createElement('p');
         bookTitle.textContent = library[i].title;
         bookAuthor.textContent = 'by ' + library[i].author;
+        deleteBtn.textContent = 'X';
+        deleteBtn.id = 'cardDeleteBtn';
+        deleteBtn.addEventListener('click', deleteParentCard);
         numOfPages.textContent = 'Pages: ' + library[i].totPages;
         finished.textContent = 'Status: ' + library[i].haveFinished;
 
         cardTable.appendChild(newCard);
         newCard.appendChild(bookTitle);
         newCard.appendChild(bookAuthor);
+        newCard.append(deleteBtn);
         newCard.appendChild(numOfPages);
         newCard.appendChild(finished);
 
@@ -107,6 +112,19 @@ addBookBtn.addEventListener('click', () => {
     }
 
 })
+
+function deleteParentCard(e) {
+    let toBeDeleted = e.target.previousElementSibling.previousElementSibling.textContent;
+    let indexToDelete;
+    for (let i = 0; i < library.length; i++) {
+        if (library[i].title == toBeDeleted) {
+            indexToDelete = i;
+        }
+    }
+    library.splice(indexToDelete, 1);
+    removeCardsFromDom();
+    displayBooks();
+}
 
 
 
