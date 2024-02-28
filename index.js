@@ -140,6 +140,7 @@ changeThemeBtn.addEventListener('click', () => {
         })
         sideBar.classList.remove('sideBarLightTheme');
         sideBar.classList.add('sideBarDarkTheme');
+        
         isDarkThemeOn = true;
     } else {
         body.classList.remove('darkThemeBody');
@@ -161,6 +162,7 @@ changeThemeBtn.addEventListener('click', () => {
         })
         sideBar.classList.remove('sideBarDarkTheme');
         sideBar.classList.add('sideBarLightTheme');
+
         isDarkThemeOn = false;
     }
 });

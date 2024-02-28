@@ -67,24 +67,26 @@ header {
     grid-template-columns: 2fr 1fr 1fr;
     align-items: center;
     justify-items: end;
+    column-gap: 1rem;
 }
 
 button {
-    width: 100px;
-    height: 40px;
+    padding: 10px 20px;
     font-weight: 500;
+    letter-spacing: -0.5px;
+    min-width: 9rem;
     border: none;
     border-radius: 5px;
-    letter-spacing: -0.5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    cursor: pointer;
     transform: translateY(-0.6px);
     box-shadow: 2px 4px 10px 0 rgb(0, 0, 0, 0.3);
 }
 
-#addBookBtn{
+#addBookBtn {
     justify-self: start;
     transition: transform 500ms;
 }
@@ -101,10 +103,18 @@ button:hover {
     background-color: var(--light-bg-color3);
 }
 
+.lightThemeBtn:hover {
+    background-color: var(--light-bg-color4);
+}
+
 .darkThemeBtn {
     background-color: var(--dark-bg-color3);
     color: whitesmoke;
     font-weight: 700;
+}
+
+.darkThemeBtn:hover {
+    background-color: var(--dark-bg-color4);
 }
 
 #main {
@@ -121,8 +131,9 @@ button:hover {
 }
 
 .sideBar {
-    transition: opacity 1s linear;
+    transition: opacity 400ms linear;
     display: block;
+    flex-shrink: 1;
 }
 
 .hideSideBar {
@@ -140,6 +151,44 @@ button:hover {
 .sideBarDarkTheme {
     background-color: #404040;
 }
+/* start form ------------*/
+#form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.status-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.status-options {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+input[type="text"] {
+    width: 95%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 4px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--dark-bg-color2);
+}
+/* end form ---------*/
 
 .bookCard {
     width: 20rem;
