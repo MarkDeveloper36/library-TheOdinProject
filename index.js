@@ -36,7 +36,8 @@ submitBtn.addEventListener('click', event => {
     let title = document.querySelector('#title').value;
     let author = document.querySelector('#author').value;
     let totPages = document.querySelector('#numOfPages').value;
-    let haveFinished = document.querySelector('#completed').value;
+    let haveFinished;
+    document.querySelector('#completed').checked === true ? haveFinished = 'Completed' : haveFinished = 'In progress';
     let newBook = new Book(title, author, totPages, haveFinished);
     library.push(newBook);
     form.reset();
@@ -95,11 +96,16 @@ addBookBtn.addEventListener('click', () => {
     } else {
         addBookBtn.classList.remove('addBtnAnimation');
         sideBar.classList.add('visuallyhidden');
-        sideBar.addEventListener('transitioned', event => {
+        sideBar.addEventListener('transitionend', event => {
             sideBar.classList.add('hideSideBar');
-        });
+        },  {
+            capture: false,
+            once: true,
+            passive: false
+          });
         isSideBarShown = false;
     }
+
 })
 
 
@@ -140,7 +146,7 @@ changeThemeBtn.addEventListener('click', () => {
         })
         sideBar.classList.remove('sideBarLightTheme');
         sideBar.classList.add('sideBarDarkTheme');
-        
+
         isDarkThemeOn = true;
     } else {
         body.classList.remove('darkThemeBody');
