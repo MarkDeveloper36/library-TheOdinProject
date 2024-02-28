@@ -1,5 +1,6 @@
 const library = [];
 let isDarkThemeOn = false;
+let isSideBarShown = false;
 
 const changeThemeBtn = document.querySelector('#changeThemeBtn');
 const body = document.querySelector('body');
@@ -9,6 +10,8 @@ const svgs = document.querySelectorAll('svg');
 const footer = document.querySelector('footer');
 const addBookBtn = document.querySelector('#addBookBtn');
 const main = document.querySelector('main');
+const cardTable = document.querySelector('#cardTable');
+const sideBar = document.querySelector('#sideBar');
 
 const cardSoundEffect = new Audio('Drawing Playing Cards Sound Effect.mp3');
 
@@ -27,10 +30,10 @@ library.push(defaultBook2);
 displayBooks();
 
 addBookBtn.addEventListener('click', () => {
-    let title = prompt('book title', 'harry potter');
-    let author = prompt('author');
-    let totPages = prompt('pages');
-    let haveFinished = prompt('finished?');
+    // let title = prompt('book title', 'harry potter');
+    // let author = prompt('author');
+    // let totPages = prompt('pages');
+    // let haveFinished = prompt('finished?');
     let newBook = new Book(title, author, totPages, haveFinished);
     library.push(newBook);
     removeCardsFromDom();
@@ -51,13 +54,12 @@ function displayBooks() {
         let bookAuthor = document.createElement('p');
         let numOfPages = document.createElement('p');
         let finished = document.createElement('p');
-
         bookTitle.textContent = library[i].title;
         bookAuthor.textContent = 'by ' + library[i].author;
         numOfPages.textContent = 'Pages: ' + library[i].totPages;
         finished.textContent = 'Status: ' + library[i].haveFinished;
 
-        main.appendChild(newCard);
+        cardTable.appendChild(newCard);
         newCard.appendChild(bookTitle);
         newCard.appendChild(bookAuthor);
         newCard.appendChild(numOfPages);
@@ -78,9 +80,25 @@ function giveStyleAndTheme(card) {
 }
 
 addBookBtn.addEventListener('click', () => {
-    addBookBtn.classList.add('addBtnAnimation');
-    console.log('eafds')
+
+    if (isSideBarShown === false) {
+        addBookBtn.classList.add('addBtnAnimation');
+        sideBar.classList.remove('hideSideBar');
+        setTimeout(function() {
+            sideBar.classList.remove('visuallyhidden');
+        }, 20);
+        isSideBarShown = true;
+    } else {
+        addBookBtn.classList.remove('addBtnAnimation');
+        sideBar.classList.add('visuallyhidden');
+        sideBar.addEventListener('transitioned', function(e) {
+            sideBar.classList.add('hideSideBar');
+        });
+        isSideBarShown = false;
+    }
 })
+
+
 
 
 
@@ -116,6 +134,8 @@ changeThemeBtn.addEventListener('click', () => {
             card.classList.remove('lightThemeCard');
             card.classList.add('darkThemeCard');
         })
+        sideBar.classList.remove('sideBarLightTheme');
+        sideBar.classList.add('sideBarDarkTheme');
         isDarkThemeOn = true;
     } else {
         body.classList.remove('darkThemeBody');
@@ -135,6 +155,8 @@ changeThemeBtn.addEventListener('click', () => {
             card.classList.remove('darkThemeCard');
             card.classList.add('lightThemeCard');
         })
+        sideBar.classList.remove('sideBarDarkTheme');
+        sideBar.classList.add('sideBarLightTheme');
         isDarkThemeOn = false;
     }
 });
