@@ -14,14 +14,13 @@ const cardTable = document.querySelector('#cardTable');
 const sideBar = document.querySelector('#sideBar');
 const submitBtn = document.querySelector('#submitInfo');
 const form = document.querySelector('#form');
-
 const cardSoundEffect = new Audio('Drawing Playing Cards Sound Effect.mp3');
 
-function Book(title, author, totPages, haveFinished) {
+function Book(title, author, totPages, status) {
     this.title = title;
     this.author = author;
     this.totPages = totPages;
-    this.haveFinished = haveFinished
+    this.status = status
 }
 
 const defaultBook1 = new Book('Shoe Dog', 'Phil Knight', 413, 'In progress');
@@ -36,58 +35,18 @@ submitBtn.addEventListener('click', event => {
     let title = document.querySelector('#title').value;
     let author = document.querySelector('#author').value;
     let totPages = document.querySelector('#numOfPages').value;
-    let haveFinished;
-    document.querySelector('#completed').checked === true ? haveFinished = 'Completed' : haveFinished = 'In progress';
-    let newBook = new Book(title, author, totPages, haveFinished);
+    let status;
+    if (document.querySelector('#completed').checked === true) {
+        status = 'Completed';
+    } else {
+        status = 'In progress';
+    }
+    let newBook = new Book(title, author, totPages, status);
     library.push(newBook);
     form.reset();
     removeCardsFromDom();
     displayBooks();
 })
-
-function removeCardsFromDom() {
-    let cards = document.querySelectorAll('.bookCard');
-    cards.forEach(card => {
-        card.remove();
-    })
-}
-
-function displayBooks() {
-    for(let i = 0; i < library.length; i++) {
-        let newCard = document.createElement('div');
-        let bookTitle = document.createElement('h2');
-        let bookAuthor = document.createElement('p');
-        let deleteBtn =  document.createElement('button');
-        let numOfPages = document.createElement('p');
-        let finished = document.createElement('p');
-        bookTitle.textContent = library[i].title;
-        bookAuthor.textContent = 'by ' + library[i].author;
-        deleteBtn.textContent = 'X';
-        deleteBtn.id = 'cardDeleteBtn';
-        deleteBtn.addEventListener('click', deleteParentCard);
-        numOfPages.textContent = 'Pages: ' + library[i].totPages;
-        finished.textContent = 'Status: ' + library[i].haveFinished;
-
-        cardTable.appendChild(newCard);
-        newCard.appendChild(bookTitle);
-        newCard.appendChild(bookAuthor);
-        newCard.append(deleteBtn);
-        newCard.appendChild(numOfPages);
-        newCard.appendChild(finished);
-
-        giveStyleAndTheme(newCard);
-    }
-}
-
-function giveStyleAndTheme(card) {
-    card.classList.add('bookCard');
-    if (isDarkThemeOn === false) {
-        card.classList.add('lightThemeCard');
-    } else {
-        card.classList.add('darkThemeCard');
-    }
-    card.addEventListener('mouseenter', playSoundEffect);
-}
 
 addBookBtn.addEventListener('click', () => {
 
@@ -112,35 +71,6 @@ addBookBtn.addEventListener('click', () => {
     }
 
 })
-
-function deleteParentCard(e) {
-    let toBeDeleted = e.target.previousElementSibling.previousElementSibling.textContent;
-    let indexToDelete;
-    for (let i = 0; i < library.length; i++) {
-        if (library[i].title == toBeDeleted) {
-            indexToDelete = i;
-        }
-    }
-    library.splice(indexToDelete, 1);
-    removeCardsFromDom();
-    displayBooks();
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 changeThemeBtn.addEventListener('click', () => {
     let cards = document.querySelectorAll('.bookCard');
@@ -190,6 +120,77 @@ changeThemeBtn.addEventListener('click', () => {
         isDarkThemeOn = false;
     }
 });
+
+function removeCardsFromDom() {
+    let cards = document.querySelectorAll('.bookCard');
+    cards.forEach(card => {
+        card.remove();
+    })
+}
+
+function displayBooks() {
+    for(let i = 0; i < library.length; i++) {
+        let newCard = document.createElement('div');
+        let bookTitle = document.createElement('h2');
+        let bookAuthor = document.createElement('p');
+        let deleteBtn =  document.createElement('button');
+        let numOfPages = document.createElement('p');
+        let toggleStatusBtn = document.createElement('button');
+        if (library[i].status == 'Complete') {
+            toggleStatusBtn.textContent = 'Mark as finished';
+            toggleStatusBtn.backgroundColor = '#1E90FF';
+        } else {
+            toggleStatusBtn.textContent = 'Mark as in progress';
+            toggleStatusBtn.backgroundColor = '#87CEEB';           
+        }
+        toggleStatusBtn.addEventListener('click', toggleStatus);
+        let finished = document.createElement('p');
+        bookTitle.textContent = library[i].title;
+        bookAuthor.textContent = 'by ' + library[i].author;
+        deleteBtn.textContent = 'X';
+        deleteBtn.id = 'cardDeleteBtn';
+        deleteBtn.addEventListener('click', deleteParentCard);
+        numOfPages.textContent = 'Pages: ' + library[i].totPages;
+        finished.textContent = 'Status: ' + library[i].status;
+
+        cardTable.appendChild(newCard);
+        newCard.appendChild(bookTitle);
+        newCard.appendChild(bookAuthor);
+        newCard.append(deleteBtn);
+        newCard.appendChild(numOfPages);
+        newCard.appendChild(toggleStatusBtn);
+        newCard.appendChild(finished);
+
+        giveStyleAndTheme(newCard);
+    }
+}
+
+function giveStyleAndTheme(card) {
+    card.classList.add('bookCard');
+    if (isDarkThemeOn === false) {
+        card.classList.add('lightThemeCard');
+    } else {
+        card.classList.add('darkThemeCard');
+    }
+    card.addEventListener('mouseenter', playSoundEffect);
+}
+
+function deleteParentCard(e) {
+    let toBeDeleted = e.target.previousElementSibling.previousElementSibling.textContent;
+    let indexToDelete;
+    for (let i = 0; i < library.length; i++) {
+        if (library[i].title == toBeDeleted) {
+            indexToDelete = i;
+        }
+    }
+    library.splice(indexToDelete, 1);
+    removeCardsFromDom();
+    displayBooks();
+}
+
+function toggleStatus(e) {
+    
+}
 
 function playSoundEffect() {
     cardSoundEffect.currentTime = 5.65;
