@@ -136,12 +136,12 @@ function displayBooks() {
         let deleteBtn =  document.createElement('button');
         let numOfPages = document.createElement('p');
         let toggleStatusBtn = document.createElement('button');
-        if (library[i].status == 'Complete') {
-            toggleStatusBtn.textContent = 'Mark as finished';
-            toggleStatusBtn.backgroundColor = '#1E90FF';
-        } else {
+        if (library[i].status == 'Completed') {
             toggleStatusBtn.textContent = 'Mark as in progress';
-            toggleStatusBtn.backgroundColor = '#87CEEB';           
+            toggleStatusBtn.style.backgroundColor = '#40E0D0';
+        } else {
+            toggleStatusBtn.textContent = 'Mark as finished';
+            toggleStatusBtn.style.backgroundColor = '#87CEEB';           
         }
         toggleStatusBtn.addEventListener('click', toggleStatus);
         let finished = document.createElement('p');
@@ -189,7 +189,20 @@ function deleteParentCard(e) {
 }
 
 function toggleStatus(e) {
-    
+    let bookTitle = e.target.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent;
+
+    for (let i = 0; i < library.length; i++){
+        if (library[i].title === bookTitle) {
+            if (library[i].status == 'Completed') {
+                library[i].status = 'In progress';
+            } else {
+                library[i].status = 'Completed';
+            }
+        }
+    }
+
+    removeCardsFromDom();
+    displayBooks();
 }
 
 function playSoundEffect() {
